@@ -1,6 +1,8 @@
 {
   "name": "ionic-http-feed",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "ebc0363a"
 }
