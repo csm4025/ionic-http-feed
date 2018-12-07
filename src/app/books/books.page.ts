@@ -53,5 +53,3 @@ export class BooksPage implements OnInit {
       });
   }
 }
-
-}
