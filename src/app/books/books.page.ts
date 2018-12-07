@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HTTP } from '@ionic-native/http/ngx';
+
 
 @Component({
   selector: 'app-books',
@@ -6,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./books.page.scss'],
 })
 export class BooksPage implements OnInit {
-
+  private url = 'http://ganskop.com/proxy/https://rss.itunes.apple.com/api/v1/us/books/top-paid/all/10/explicit.json';
   items = [
     {
       'artistName': 'John Sandford',
@@ -33,10 +35,23 @@ export class BooksPage implements OnInit {
       'url': 'https://itunes.apple.com/us/book/twisted-prey/id1276011760?mt=11'
     }
   ];
-  
-  constructor() { }
+
+  constructor(private http: HTTP) { }
 
   ngOnInit() {
+    // this.http.setHeader( "*", "Authorization", "Bearer asdfasdfa" );
+    this.http.get(this.url, {}, { 'Authorization': 'Bearer asdfasdfa' })
+      .then(response => {
+
+        console.log('response: ', response);
+        const data = JSON.parse(response.data);
+        console.log('data: ', data);
+        this.items = data.feed.results;
+      })
+      .catch(error => {
+        console.log('error', error);
+      });
   }
+}
 
 }
